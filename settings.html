@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Desktop CRUD App</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .settings-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .settings-section {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0f0f0;
+            margin-bottom: 20px;
+        }
+        
+        .dark-theme .settings-section {
+            background: #2a2a2a;
+            border-color: #404040;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .dark-theme .form-group label {
+            color: #e0e0e0;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: white;
+            color: #333;
+        }
+        
+        .dark-theme .form-group input {
+            background: #3a3a3a;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+        
+        .path-display {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+            font-family: monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            margin-top: 8px;
+        }
+        
+        .dark-theme .path-display {
+            background: #3a3a3a;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+        
+        .status-message {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .status-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .dark-theme .status-message.success {
+            background: #1e4d2b;
+            color: #d4edda;
+            border-color: #2d5a3d;
+        }
+        
+        .dark-theme .status-message.error {
+            background: #4d1e1e;
+            color: #f8d7da;
+            border-color: #5a2d2d;
+        }
+    </style>
+</head>
+<body>
+    <div class="settings-container">
+        <header class="header">
+            <h1>Settings</h1>
+            <p class="subtitle">Configure your data storage location</p>
+        </header>
+
+        <div id="status-message" class="status-message"></div>
+
+        <div class="settings-section">
+            <h2>Data Storage Location</h2>
+            <p style="color: #666; margin-bottom: 20px;">
+                Choose where your application data will be stored. This includes all your CRUD records and settings.
+            </p>
+            
+            <div class="form-group">
+                <label for="data-directory">Data Directory Path:</label>
+                <input type="text" id="data-directory" readonly>
+                <div class="path-display" id="path-display"></div>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-outline" onclick="selectNewDirectory()">Change Location</button>
+                <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h2>About</h2>
+            <p style="color: #666;">
+                This application stores all data locally in JSON files within the selected directory. 
+                Your data remains private and is not sent to any external servers.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+        
+        let currentConfig = {};
+        
+        // Load current configuration
+        async function loadSettings() {
+            try {
+                currentConfig = await ipcRenderer.invoke('get-config');
+                document.getElementById('data-directory').value = currentConfig.dataDirectory || '';
+                document.getElementById('path-display').textContent = currentConfig.dataDirectory || 'No directory selected';
+            } catch (error) {
+                showMessage('Error loading settings: ' + error.message, 'error');
+            }
+        }
+        
+        // Select new directory
+        async function selectNewDirectory() {
+            try {
+                const selectedPath = await ipcRenderer.invoke('select-directory');
+                if (selectedPath) {
+                    currentConfig.dataDirectory = selectedPath;
+                    document.getElementById('data-directory').value = selectedPath;
+                    document.getElementById('path-display').textContent = selectedPath;
+                    showMessage('Directory selected successfully', 'success');
+                }
+            } catch (error) {
+                showMessage('Error selecting directory: ' + error.message, 'error');
+            }
+        }
+        
+        // Save settings
+        async function saveSettings() {
+            try {
+                const success = await ipcRenderer.invoke('save-config', currentConfig);
+                if (success) {
+                    showMessage('Settings saved successfully', 'success');
+                } else {
+                    showMessage('Error saving settings', 'error');
+                }
+            } catch (error) {
+                showMessage('Error saving settings: ' + error.message, 'error');
+            }
+        }
+        
+        // Show status message
+        function showMessage(message, type) {
+            const statusDiv = document.getElementById('status-message');
+            statusDiv.textContent = message;
+            statusDiv.className = `status-message ${type}`;
+            statusDiv.style.display = 'block';
+            
+            // Hide message after 3 seconds
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Initialize settings page
+        document.addEventListener('DOMContentLoaded', loadSettings);
+    </script>
+</body>
+</html>

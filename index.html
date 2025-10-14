@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desktop CRUD App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Desktop CRUD App</h1>
+            <p class="subtitle">Create, Read, Update, Delete your data</p>
+            <div class="header-actions">
+                <button class="btn btn-outline" onclick="openSettings()">⚙️ Settings</button>
+                <button class="btn btn-outline" onclick="toggleTheme()">🌙 Theme</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Data Directory Status -->
+            <div class="content-section" id="directory-status" style="display: none;">
+                <h2>📁 Data Directory</h2>
+                <div class="path-display" id="current-directory"></div>
+            </div>
+
+            <!-- CRUD Operations -->
+            <div class="content-section">
+                <h2>📝 Manage Records</h2>
+                
+                <!-- Add New Record Form -->
+                <div class="form-section">
+                    <h3>Add New Record</h3>
+                    <form id="add-form" class="crud-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <textarea id="description" rows="3"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Add Record</button>
+                            <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Records List -->
+                <div class="records-section">
+                    <div class="section-header">
+                        <h3>Records List</h3>
+                        <div class="search-box">
+                            <input type="text" id="search-input" placeholder="Search records...">
+                        </div>
+                    </div>
+                    
+                    <div class="records-list" id="records-list">
+                        <!-- Records will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="content-section">
+                <h2>📊 Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="total-records">0</div>
+                        <div class="stat-label">Total Records</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="today-records">0</div>
+                        <div class="stat-label">Added Today</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 Desktop CRUD App. Built with Electron.</p>
+        </footer>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Record</h3>
+                <button class="close-btn" onclick="closeEditModal()">&times;</button>
+            </div>
+            <form id="edit-form" class="crud-form">
+                <input type="hidden" id="edit-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-name">Name:</label>
+                        <input type="text" id="edit-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-email">Email:</label>
+                        <input type="email" id="edit-email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="edit-description">Description:</label>
+                    <textarea id="edit-description" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Update Record</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
