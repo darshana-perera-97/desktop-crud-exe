@@ -30,24 +30,150 @@
                 
                 <!-- Add New Record Form -->
                 <div class="form-section">
-                    <h3>Add New Record</h3>
+                    <h3>User Information Form</h3>
                     <form id="add-form" class="crud-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Name:</label>
-                                <input type="text" id="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email:</label>
-                                <input type="email" id="email" required>
-                            </div>
-                        </div>
                         <div class="form-group">
-                            <label for="description">Description:</label>
-                            <textarea id="description" rows="3"></textarea>
+                            <label for="name">iïmQ¾K ku</label>
+                            <input type="text" id="name" name="name" placeholder="ku" required>
                         </div>
+
+                        <div class="form-group">
+                            <label for="nic">cd' ye' wxlh</label>
+                            <input type="text" id="nic" name="nic" placeholder="NIC" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mobile1">cx.u ÿrl;k wxl 01</label>
+                            <input type="tel" id="mobile1" name="mobile1" placeholder="ÿrl;k wxl 01 we;=,;a lrkak ^7)))))))))&">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="whatsapp">jÜia-wema wxlh</label>
+                            <input type="tel" id="whatsapp" name="whatsapp" placeholder="WhatsApp contact number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mobile2">cx.u ÿrl;k wxl 02 ^úl,am&</label>
+                            <input type="tel" id="mobile2" name="mobile2" placeholder="ÿrl;k wxl 02 we;=,;a lrkak ^7)))))))))&">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="homeNumber">ia:djr ÿrl;k wxl ^úl,am&</label>
+                            <input type="tel" id="homeNumber" name="homeNumber" placeholder="ia:djr ÿrl;k wxlh we;=,;a lrkak">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">,smskh</label>
+                            <textarea id="address" name="address" rows="3" placeholder=",smskh" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dob">Wmka Èkh</label>
+                            <input type="date" id="dob" name="dob" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="politicalPartyId">mlaI idudðl wxlh</label>
+                            <input type="text" id="politicalPartyId" name="politicalPartyId" 
+                                   pattern="\d{6}" title="Membership number must be 6 digits" 
+                                   placeholder="Unique ID" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="region">wdikh</label>
+                            <select id="region" name="region" required>
+                                <option value="">wdikh f;darkak</option>
+                                <option value="Western Province">Western Province</option>
+                                <option value="Central Province">Central Province</option>
+                                <option value="Southern Province">Southern Province</option>
+                                <option value="Northern Province">Northern Province</option>
+                                <option value="Eastern Province">Eastern Province</option>
+                                <option value="North Western Province">North Western Province</option>
+                                <option value="North Central Province">North Central Province</option>
+                                <option value="Uva Province">Uva Province</option>
+                                <option value="Sabaragamuwa Province">Sabaragamuwa Province</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="agaDivision">m%dfoaYSh f,alï ld¾hd,h</label>
+                            <select id="agaDivision" name="agaDivision" required>
+                                <option value="">m%dfoaYSh f,alï ld¾hd,h f;darkak</option>
+                                <option value="Colombo">Colombo</option>
+                                <option value="Gampaha">Gampaha</option>
+                                <option value="Kalutara">Kalutara</option>
+                                <option value="Kandy">Kandy</option>
+                                <option value="Matale">Matale</option>
+                                <option value="Nuwara Eliya">Nuwara Eliya</option>
+                                <option value="Galle">Galle</option>
+                                <option value="Matara">Matara</option>
+                                <option value="Hambantota">Hambantota</option>
+                                <option value="Jaffna">Jaffna</option>
+                                <option value="Vanni">Vanni</option>
+                                <option value="Batticaloa">Batticaloa</option>
+                                <option value="Digamadulla">Digamadulla</option>
+                                <option value="Trincomalee">Trincomalee</option>
+                                <option value="Kurunegala">Kurunegala</option>
+                                <option value="Puttalam">Puttalam</option>
+                                <option value="Anuradhapura">Anuradhapura</option>
+                                <option value="Polonnaruwa">Polonnaruwa</option>
+                                <option value="Badulla">Badulla</option>
+                                <option value="Moneragala">Moneragala</option>
+                                <option value="Ratnapura">Ratnapura</option>
+                                <option value="Kegalle">Kegalle</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gsDivision">.%dufiajd jiu</label>
+                            <select id="gsDivision" name="gsDivision" required>
+                                <option value="">.%dufiajd jiu f;darkak</option>
+                                <option value="GS001">GS Division 001</option>
+                                <option value="GS002">GS Division 002</option>
+                                <option value="GS003">GS Division 003</option>
+                                <option value="GS004">GS Division 004</option>
+                                <option value="GS005">GS Division 005</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="poolingBooth">Pkao uOHia:dkh</label>
+                            <select id="poolingBooth" name="poolingBooth" required>
+                                <option value="">Pkao uOHia:dkh wxlh f;darkak</option>
+                                <option value="PB001">Polling Booth 001</option>
+                                <option value="PB002">Polling Booth 002</option>
+                                <option value="PB003">Polling Booth 003</option>
+                                <option value="PB004">Polling Booth 004</option>
+                                <option value="PB005">Polling Booth 005</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="priority">m%uqL;dj</label>
+                            <select id="priority" name="priority" required>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5" selected>5</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="communities">idudðl;ajhka</label>
+                            <div class="communities-container">
+                                <input type="text" id="community-input" placeholder="Type community name and press Enter">
+                                <div id="selected-communities" class="selected-communities"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="connectivity">fjk;a úia;r</label>
+                            <input type="text" id="connectivity" name="connectivity" placeholder="iduðlhdf.a fjk;a úia;r">
+                        </div>
+
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Add Record</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                             <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
                         </div>
                     </form>
@@ -98,20 +224,147 @@
             </div>
             <form id="edit-form" class="crud-form">
                 <input type="hidden" id="edit-id">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="edit-name">Name:</label>
-                        <input type="text" id="edit-name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit-email">Email:</label>
-                        <input type="email" id="edit-email" required>
-                    </div>
-                </div>
+                
                 <div class="form-group">
-                    <label for="edit-description">Description:</label>
-                    <textarea id="edit-description" rows="3"></textarea>
+                    <label for="edit-name">iïmQ¾K ku</label>
+                    <input type="text" id="edit-name" name="name" placeholder="ku" required>
                 </div>
+
+                <div class="form-group">
+                    <label for="edit-nic">cd' ye' wxlh</label>
+                    <input type="text" id="edit-nic" name="nic" placeholder="NIC" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-mobile1">cx.u ÿrl;k wxl 01</label>
+                    <input type="tel" id="edit-mobile1" name="mobile1" placeholder="ÿrl;k wxl 01 we;=,;a lrkak ^7)))))))))&">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-whatsapp">jÜia-wema wxlh</label>
+                    <input type="tel" id="edit-whatsapp" name="whatsapp" placeholder="WhatsApp contact number">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-mobile2">cx.u ÿrl;k wxl 02 ^úl,am&</label>
+                    <input type="tel" id="edit-mobile2" name="mobile2" placeholder="ÿrl;k wxl 02 we;=,;a lrkak ^7)))))))))&">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-homeNumber">ia:djr ÿrl;k wxl ^úl,am&</label>
+                    <input type="tel" id="edit-homeNumber" name="homeNumber" placeholder="ia:djr ÿrl;k wxlh we;=,;a lrkak">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-address">,smskh</label>
+                    <textarea id="edit-address" name="address" rows="3" placeholder=",smskh" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-dob">Wmka Èkh</label>
+                    <input type="date" id="edit-dob" name="dob" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-politicalPartyId">mlaI idudðl wxlh</label>
+                    <input type="text" id="edit-politicalPartyId" name="politicalPartyId" 
+                           pattern="\d{6}" title="Membership number must be 6 digits" 
+                           placeholder="Unique ID" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-region">wdikh</label>
+                    <select id="edit-region" name="region" required>
+                        <option value="">wdikh f;darkak</option>
+                        <option value="Western Province">Western Province</option>
+                        <option value="Central Province">Central Province</option>
+                        <option value="Southern Province">Southern Province</option>
+                        <option value="Northern Province">Northern Province</option>
+                        <option value="Eastern Province">Eastern Province</option>
+                        <option value="North Western Province">North Western Province</option>
+                        <option value="North Central Province">North Central Province</option>
+                        <option value="Uva Province">Uva Province</option>
+                        <option value="Sabaragamuwa Province">Sabaragamuwa Province</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-agaDivision">m%dfoaYSh f,alï ld¾hd,h</label>
+                    <select id="edit-agaDivision" name="agaDivision" required>
+                        <option value="">m%dfoaYSh f,alï ld¾hd,h f;darkak</option>
+                        <option value="Colombo">Colombo</option>
+                        <option value="Gampaha">Gampaha</option>
+                        <option value="Kalutara">Kalutara</option>
+                        <option value="Kandy">Kandy</option>
+                        <option value="Matale">Matale</option>
+                        <option value="Nuwara Eliya">Nuwara Eliya</option>
+                        <option value="Galle">Galle</option>
+                        <option value="Matara">Matara</option>
+                        <option value="Hambantota">Hambantota</option>
+                        <option value="Jaffna">Jaffna</option>
+                        <option value="Vanni">Vanni</option>
+                        <option value="Batticaloa">Batticaloa</option>
+                        <option value="Digamadulla">Digamadulla</option>
+                        <option value="Trincomalee">Trincomalee</option>
+                        <option value="Kurunegala">Kurunegala</option>
+                        <option value="Puttalam">Puttalam</option>
+                        <option value="Anuradhapura">Anuradhapura</option>
+                        <option value="Polonnaruwa">Polonnaruwa</option>
+                        <option value="Badulla">Badulla</option>
+                        <option value="Moneragala">Moneragala</option>
+                        <option value="Ratnapura">Ratnapura</option>
+                        <option value="Kegalle">Kegalle</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-gsDivision">.%dufiajd jiu</label>
+                    <select id="edit-gsDivision" name="gsDivision" required>
+                        <option value="">.%dufiajd jiu f;darkak</option>
+                        <option value="GS001">GS Division 001</option>
+                        <option value="GS002">GS Division 002</option>
+                        <option value="GS003">GS Division 003</option>
+                        <option value="GS004">GS Division 004</option>
+                        <option value="GS005">GS Division 005</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-poolingBooth">Pkao uOHia:dkh</label>
+                    <select id="edit-poolingBooth" name="poolingBooth" required>
+                        <option value="">Pkao uOHia:dkh wxlh f;darkak</option>
+                        <option value="PB001">Polling Booth 001</option>
+                        <option value="PB002">Polling Booth 002</option>
+                        <option value="PB003">Polling Booth 003</option>
+                        <option value="PB004">Polling Booth 004</option>
+                        <option value="PB005">Polling Booth 005</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-priority">m%uqL;dj</label>
+                    <select id="edit-priority" name="priority" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-communities">idudðl;ajhka</label>
+                    <div class="communities-container">
+                        <input type="text" id="edit-community-input" placeholder="Type community name and press Enter">
+                        <div id="edit-selected-communities" class="selected-communities"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-connectivity">fjk;a úia;r</label>
+                    <input type="text" id="edit-connectivity" name="connectivity" placeholder="iduðlhdf.a fjk;a úia;r">
+                </div>
+
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Update Record</button>
                     <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>

@@ -27,7 +27,9 @@
       "index.html",
       "styles.css",
       "renderer.js",
-      "package.json"
+      "settings.html",
+      "package.json",
+      "fonts/**/*"
     ],
     "win": {
       "target": "nsis",

@@ -4,6 +4,8 @@ const { ipcRenderer } = require('electron');
 let isDarkTheme = false;
 let records = [];
 let currentDataDirectory = '';
+let selectedCommunities = [];
+let editSelectedCommunities = [];
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
@@ -11,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadRecords();
     setupEventListeners();
     updateStatistics();
+    setupCommunitiesHandlers();
 });
 
 // Setup event listeners
@@ -29,6 +32,70 @@ function setupEventListeners() {
         document.getElementById('directory-status').style.display = 'block';
         loadRecords();
     });
+}
+
+// Communities handling
+function setupCommunitiesHandlers() {
+    const communityInput = document.getElementById('community-input');
+    const editCommunityInput = document.getElementById('edit-community-input');
+    
+    if (communityInput) {
+        communityInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addCommunity(this.value.trim(), 'add');
+                this.value = '';
+            }
+        });
+    }
+    
+    if (editCommunityInput) {
+        editCommunityInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addCommunity(this.value.trim(), 'edit');
+                this.value = '';
+            }
+        });
+    }
+}
+
+function addCommunity(communityName, type) {
+    if (!communityName) return;
+    
+    if (type === 'add') {
+        if (!selectedCommunities.includes(communityName)) {
+            selectedCommunities.push(communityName);
+            updateCommunitiesDisplay('selected-communities', selectedCommunities);
+        }
+    } else {
+        if (!editSelectedCommunities.includes(communityName)) {
+            editSelectedCommunities.push(communityName);
+            updateCommunitiesDisplay('edit-selected-communities', editSelectedCommunities);
+        }
+    }
+}
+
+function removeCommunity(communityName, type) {
+    if (type === 'add') {
+        selectedCommunities = selectedCommunities.filter(c => c !== communityName);
+        updateCommunitiesDisplay('selected-communities', selectedCommunities);
+    } else {
+        editSelectedCommunities = editSelectedCommunities.filter(c => c !== communityName);
+        updateCommunitiesDisplay('edit-selected-communities', editSelectedCommunities);
+    }
+}
+
+function updateCommunitiesDisplay(containerId, communities) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    
+    container.innerHTML = communities.map(community => `
+        <div class="community-tag">
+            ${escapeHtml(community)}
+            <button class="remove-btn" onclick="removeCommunity('${escapeHtml(community)}', '${containerId.includes('edit') ? 'edit' : 'add'}')">&times;</button>
+        </div>
+    `).join('');
 }
 
 // CRUD Operations
@@ -62,20 +129,46 @@ function generateId() {
 function handleAddRecord(e) {
     e.preventDefault();
     
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const description = document.getElementById('description').value.trim();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
     
-    if (!name || !email) {
-        showMessage('Name and email are required', 'error');
+    // Validate required fields
+    if (!data.name || !data.nic || !data.address || !data.dob || !data.politicalPartyId || 
+        !data.region || !data.agaDivision || !data.gsDivision || !data.poolingBooth) {
+        showMessage('Please fill in all required fields', 'error');
+        return;
+    }
+    
+    // Validate NIC format (basic validation)
+    if (data.nic.length < 9) {
+        showMessage('NIC must be at least 9 characters long', 'error');
+        return;
+    }
+    
+    // Validate Political Party ID format
+    if (!/^\d{6}$/.test(data.politicalPartyId)) {
+        showMessage('Political Party ID must be exactly 6 digits', 'error');
         return;
     }
     
     const newRecord = {
         id: generateId(),
-        name: name,
-        email: email,
-        description: description,
+        name: data.name.trim(),
+        nic: data.nic.trim(),
+        mobile1: data.mobile1?.trim() || '',
+        mobile2: data.mobile2?.trim() || '',
+        whatsapp: data.whatsapp?.trim() || '',
+        homeNumber: data.homeNumber?.trim() || '',
+        address: data.address.trim(),
+        dob: data.dob,
+        politicalPartyId: data.politicalPartyId,
+        region: data.region,
+        agaDivision: data.agaDivision,
+        gsDivision: data.gsDivision,
+        poolingBooth: data.poolingBooth,
+        priority: parseInt(data.priority),
+        connectivity: data.connectivity?.trim() || '',
+        communities: [...selectedCommunities],
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
     };
@@ -91,13 +184,26 @@ function handleAddRecord(e) {
 function handleEditRecord(e) {
     e.preventDefault();
     
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
     const id = document.getElementById('edit-id').value;
-    const name = document.getElementById('edit-name').value.trim();
-    const email = document.getElementById('edit-email').value.trim();
-    const description = document.getElementById('edit-description').value.trim();
     
-    if (!name || !email) {
-        showMessage('Name and email are required', 'error');
+    // Validate required fields
+    if (!data.name || !data.nic || !data.address || !data.dob || !data.politicalPartyId || 
+        !data.region || !data.agaDivision || !data.gsDivision || !data.poolingBooth) {
+        showMessage('Please fill in all required fields', 'error');
+        return;
+    }
+    
+    // Validate NIC format (basic validation)
+    if (data.nic.length < 9) {
+        showMessage('NIC must be at least 9 characters long', 'error');
+        return;
+    }
+    
+    // Validate Political Party ID format
+    if (!/^\d{6}$/.test(data.politicalPartyId)) {
+        showMessage('Political Party ID must be exactly 6 digits', 'error');
         return;
     }
     
@@ -105,9 +211,22 @@ function handleEditRecord(e) {
     if (recordIndex !== -1) {
         records[recordIndex] = {
             ...records[recordIndex],
-            name: name,
-            email: email,
-            description: description,
+            name: data.name.trim(),
+            nic: data.nic.trim(),
+            mobile1: data.mobile1?.trim() || '',
+            mobile2: data.mobile2?.trim() || '',
+            whatsapp: data.whatsapp?.trim() || '',
+            homeNumber: data.homeNumber?.trim() || '',
+            address: data.address.trim(),
+            dob: data.dob,
+            politicalPartyId: data.politicalPartyId,
+            region: data.region,
+            agaDivision: data.agaDivision,
+            gsDivision: data.gsDivision,
+            poolingBooth: data.poolingBooth,
+            priority: parseInt(data.priority),
+            connectivity: data.connectivity?.trim() || '',
+            communities: [...editSelectedCommunities],
             updatedAt: new Date().toISOString()
         };
         
@@ -123,8 +242,25 @@ function editRecord(id) {
     if (record) {
         document.getElementById('edit-id').value = record.id;
         document.getElementById('edit-name').value = record.name;
-        document.getElementById('edit-email').value = record.email;
-        document.getElementById('edit-description').value = record.description;
+        document.getElementById('edit-nic').value = record.nic;
+        document.getElementById('edit-mobile1').value = record.mobile1 || '';
+        document.getElementById('edit-mobile2').value = record.mobile2 || '';
+        document.getElementById('edit-whatsapp').value = record.whatsapp || '';
+        document.getElementById('edit-homeNumber').value = record.homeNumber || '';
+        document.getElementById('edit-address').value = record.address;
+        document.getElementById('edit-dob').value = record.dob;
+        document.getElementById('edit-politicalPartyId').value = record.politicalPartyId;
+        document.getElementById('edit-region').value = record.region;
+        document.getElementById('edit-agaDivision').value = record.agaDivision;
+        document.getElementById('edit-gsDivision').value = record.gsDivision;
+        document.getElementById('edit-poolingBooth').value = record.poolingBooth;
+        document.getElementById('edit-priority').value = record.priority;
+        document.getElementById('edit-connectivity').value = record.connectivity || '';
+        
+        // Set communities
+        editSelectedCommunities = [...(record.communities || [])];
+        updateCommunitiesDisplay('edit-selected-communities', editSelectedCommunities);
+        
         document.getElementById('edit-modal').style.display = 'flex';
     }
 }
@@ -142,6 +278,8 @@ function deleteRecord(id) {
 function closeEditModal() {
     document.getElementById('edit-modal').style.display = 'none';
     document.getElementById('edit-form').reset();
+    editSelectedCommunities = [];
+    updateCommunitiesDisplay('edit-selected-communities', editSelectedCommunities);
 }
 
 // Display functions
@@ -158,8 +296,33 @@ function displayRecords(recordsToShow) {
             <div class="record-header">
                 <div class="record-info">
                     <h4>${escapeHtml(record.name)}</h4>
-                    <div class="email">${escapeHtml(record.email)}</div>
-                    ${record.description ? `<div class="record-description">${escapeHtml(record.description)}</div>` : ''}
+                    <div class="nic">NIC: ${escapeHtml(record.nic)}</div>
+                    <div class="priority-info priority-${record.priority}">Priority: ${record.priority}</div>
+                    
+                    <div class="contact-info">
+                        ${record.mobile1 ? `<span>📱 Mobile 1: ${escapeHtml(record.mobile1)}</span>` : ''}
+                        ${record.mobile2 ? `<span>📱 Mobile 2: ${escapeHtml(record.mobile2)}</span>` : ''}
+                        ${record.whatsapp ? `<span>💬 WhatsApp: ${escapeHtml(record.whatsapp)}</span>` : ''}
+                        ${record.homeNumber ? `<span>🏠 Home: ${escapeHtml(record.homeNumber)}</span>` : ''}
+                    </div>
+                    
+                    <div class="location-info">
+                        <span>📍 ${escapeHtml(record.region)}</span>
+                        <span>🏛️ ${escapeHtml(record.agaDivision)}</span>
+                        <span>🏘️ ${escapeHtml(record.gsDivision)}</span>
+                        <span>🗳️ ${escapeHtml(record.poolingBooth)}</span>
+                    </div>
+                    
+                    ${record.address ? `<div class="record-description">📍 ${escapeHtml(record.address)}</div>` : ''}
+                    ${record.connectivity ? `<div class="record-description">🌐 ${escapeHtml(record.connectivity)}</div>` : ''}
+                    
+                    ${record.communities && record.communities.length > 0 ? `
+                        <div class="communities-list">
+                            ${record.communities.map(community => 
+                                `<span class="community-badge">${escapeHtml(community)}</span>`
+                            ).join('')}
+                        </div>
+                    ` : ''}
                 </div>
                 <div class="record-actions">
                     <button class="btn btn-outline" onclick="editRecord('${record.id}')">Edit</button>
@@ -169,6 +332,8 @@ function displayRecords(recordsToShow) {
             <div class="record-meta">
                 <span>Created: ${formatDate(record.createdAt)}</span>
                 <span>Updated: ${formatDate(record.updatedAt)}</span>
+                <span>DOB: ${formatDate(record.dob)}</span>
+                <span>Party ID: ${escapeHtml(record.politicalPartyId)}</span>
             </div>
         </div>
     `).join('');
@@ -189,8 +354,19 @@ function handleSearch(e) {
     const searchTerm = e.target.value.toLowerCase();
     const filteredRecords = records.filter(record => 
         record.name.toLowerCase().includes(searchTerm) ||
-        record.email.toLowerCase().includes(searchTerm) ||
-        record.description.toLowerCase().includes(searchTerm)
+        record.nic.toLowerCase().includes(searchTerm) ||
+        record.mobile1?.toLowerCase().includes(searchTerm) ||
+        record.mobile2?.toLowerCase().includes(searchTerm) ||
+        record.whatsapp?.toLowerCase().includes(searchTerm) ||
+        record.address.toLowerCase().includes(searchTerm) ||
+        record.region.toLowerCase().includes(searchTerm) ||
+        record.agaDivision.toLowerCase().includes(searchTerm) ||
+        record.gsDivision.toLowerCase().includes(searchTerm) ||
+        record.poolingBooth.toLowerCase().includes(searchTerm) ||
+        record.politicalPartyId.includes(searchTerm) ||
+        (record.communities && record.communities.some(community => 
+            community.toLowerCase().includes(searchTerm)
+        ))
     );
     displayRecords(filteredRecords);
 }
@@ -198,6 +374,8 @@ function handleSearch(e) {
 // Utility functions
 function clearForm() {
     document.getElementById('add-form').reset();
+    selectedCommunities = [];
+    updateCommunitiesDisplay('selected-communities', selectedCommunities);
 }
 
 function escapeHtml(text) {
