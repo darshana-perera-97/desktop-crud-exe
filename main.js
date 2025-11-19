@@ -72,10 +72,10 @@ async function selectDataDirectory() {
 function createWindow() {
   // Create the browser window
   mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 700,
-    minWidth: 600,
-    minHeight: 400,
+    width: 1400,
+    height: 800,
+    minWidth: 800,
+    minHeight: 500,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false

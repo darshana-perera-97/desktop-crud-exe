@@ -1,4 +1,4 @@
-export const poolingOptions = [
+const poolingOptions = [
     {
       value: "1' y,d$Ydka; wdkd lKsIaG úoHd,h - isß.ïm, -Yd,d wxl 01",
       label: "1' y,d$Ydka; wdkd lKsIaG úoHd,h - isß.ïm, -Yd,d wxl 01",
@@ -328,7 +328,7 @@ export const poolingOptions = [
       label: "81' y,d$fjka$Y%S rdyq, m%d:ñl úoHd,h - ¨Kqú,",
     },
   ];
-  export const gsOptions = [
+  const gsOptions = [
     {
       value: "fjka01' wxl 467 kef.kysr ¨Kqú,",
       label: "fjka01' wxl 467 kef.kysr ¨Kqú,",
@@ -694,7 +694,7 @@ export const poolingOptions = [
     },
   ];
   
-  export const gsOptions2 = [
+  const gsOptions2 = [
     { value: "466 ã W;=re lsßueáhdk", label: "466 ã W;=re lsßueáhdk" },
     { value: "466 B ol=Kq lsßueáhdk", label: "466 B ol=Kq lsßueáhdk" },
     { value: "466 t*a ngysr lsßueáhdk", label: "466 t*a ngysr lsßueáhdk" },
@@ -802,15 +802,22 @@ export const poolingOptions = [
     { value: "480 ta fnda,dk", label: "480 ta fnda,dk" },
   ];
   
-  export const agaOptions = [
+  const agaOptions = [
     { value: "01 - fjkakmamqj", label: "01 - fjkakmamqj" },
     { value: "02 - okafldgqj", label: "02 - okafldgqj" },
   ];
-  export const region = [
+  const region = [
     { value: "y,dj;", label: "y,dj;", sub: "Chilaw" },
     { value: "kd;a;kaäh", label: "kd;a;kaäh", sub: "Nattandiya" },
     { value: "fjkakmamqj", label: "fjkakmamqj", sub: "Wenmappuwa" },
     { value: "wdKuvqj", label: "wdKuvqj", sub: "Anamaduwa" },
     { value: "mq;a;,u", label: "mq;a;,u", sub: "Puttalm" },
   ];
+
+module.exports = {
+  poolingOptions,
+  gsOptions,
+  agaOptions,
+  region
+};
   

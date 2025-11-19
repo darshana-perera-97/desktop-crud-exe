@@ -40,7 +40,7 @@
 }
 
 body {
-    font-family: 'FM Malithi', 'Malithi Web', 'Iskoola Pota', 'Noto Sans Sinhala', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
     color: #333;
     background-color: #fafafa;
@@ -56,7 +56,7 @@ body.dark-theme {
 
 /* Container */
 .container {
-    max-width: 1000px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
     min-height: 100vh;
@@ -81,34 +81,24 @@ body.dark-theme {
     font-size: 2.5rem;
     font-weight: 300;
     color: #2c2c2c;
-    margin-bottom: 10px;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .dark-theme .header h1 {
     color: #f0f0f0;
 }
 
-.subtitle {
-    font-size: 1.1rem;
-    color: #666;
-    font-weight: 400;
-    margin-bottom: 20px;
-}
-
-.dark-theme .subtitle {
-    color: #999;
-}
-
-.header-actions {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.header-actions .btn {
-    padding: 8px 16px;
+.greeting {
     font-size: 0.9rem;
+    color: #666;
+    margin-top: 8px;
+    font-weight: 400;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.dark-theme .greeting {
+    color: #999;
 }
 
 /* Main content */
@@ -117,6 +107,80 @@ body.dark-theme {
     display: flex;
     flex-direction: column;
     gap: 40px;
+}
+
+/* Landing Page */
+.landing-page {
+    display: grid;
+    place-items: center;
+    min-height: 60vh;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1400px;
+    width: 100%;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.dark-theme .card {
+    background: #2a2a2a;
+    border-color: #404040;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.dark-theme .card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.card-icon {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #2c2c2c;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.dark-theme .card-title {
+    color: #f0f0f0;
+}
+
+.card-description {
+    color: #666;
+    font-size: 0.95rem;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.dark-theme .card-description {
+    color: #999;
 }
 
 .content-section {
@@ -138,6 +202,7 @@ body.dark-theme {
     font-weight: 400;
     margin-bottom: 20px;
     color: #2c2c2c;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .dark-theme .content-section h2 {
@@ -168,6 +233,7 @@ body.dark-theme {
     font-size: 1.2rem;
     margin-bottom: 10px;
     color: #2c2c2c;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .dark-theme .feature-item h3 {
@@ -221,6 +287,7 @@ body.dark-theme {
     color: #2c2c2c;
     font-size: 1.3rem;
     font-weight: 400;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .dark-theme .form-section h3 {
@@ -313,6 +380,7 @@ body.dark-theme {
     color: #2c2c2c;
     font-size: 1.3rem;
     font-weight: 400;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .dark-theme .section-header h3 {
@@ -375,6 +443,7 @@ body.dark-theme {
     color: #2c2c2c;
     font-size: 1.1rem;
     font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .dark-theme .record-info h4 {
@@ -474,42 +543,74 @@ body.dark-theme {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    animation: fadeIn 0.2s ease-out;
+    backdrop-filter: blur(4px);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .modal-content {
     background: white;
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 0;
     max-width: 500px;
     width: 90%;
-    max-height: 80vh;
+    max-height: 85vh;
     overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.3s ease-out;
+    position: relative;
 }
 
 .dark-theme .modal-content {
     background: #2a2a2a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    border-bottom: 1px solid #e0e0e0;
+    padding: 20px 25px;
+    border-bottom: 2px solid #e0e0e0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 12px 12px 0 0;
 }
 
 .dark-theme .modal-header {
     border-bottom-color: #404040;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
 }
 
 .modal-header h3 {
     margin: 0;
     color: #2c2c2c;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
 }
 
 .dark-theme .modal-header h3 {
@@ -517,29 +618,36 @@ body.dark-theme {
 }
 
 .close-btn {
-    background: none;
+    background: rgba(0, 0, 0, 0.05);
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
     color: #666;
     padding: 0;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    line-height: 1;
 }
 
 .dark-theme .close-btn {
     color: #999;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .close-btn:hover {
-    color: #333;
+    color: #000;
+    background: rgba(0, 0, 0, 0.1);
+    transform: rotate(90deg);
 }
 
 .dark-theme .close-btn:hover {
-    color: #e0e0e0;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .modal .crud-form {
@@ -648,6 +756,7 @@ body.dark-theme {
     color: #2c2c2c;
     font-size: 1.2rem;
     font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .dark-theme .record-item .record-info h4 {
@@ -764,6 +873,7 @@ body.dark-theme {
     text-decoration: none;
     display: inline-block;
     min-width: 120px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .btn-primary {
@@ -899,6 +1009,275 @@ body.dark-theme {
     outline-offset: 2px;
 }
 
+/* Data Table Styling */
+.data-table {
+    width: 100%;
+    min-width: 1000px;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.dark-theme .data-table tbody tr:nth-child(even) {
+    background: #2a2a2a;
+}
+
+.dark-theme .data-table {
+    background: #2a2a2a;
+    border-color: #404040;
+}
+
+.data-table thead {
+    background: #f8f9fa;
+}
+
+.dark-theme .data-table thead {
+    background: #3a3a3a;
+}
+
+.data-table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #2c2c2c;
+    font-size: 0.85rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.dark-theme .data-table th {
+    color: #f0f0f0;
+    border-bottom-color: #404040;
+}
+
+.data-table td {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    color: #333;
+    font-family: 'FM Malithi', 'Malithi Web', 'Iskoola Pota', 'Noto Sans Sinhala', sans-serif !important;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dark-theme .data-table td {
+    color: #e0e0e0;
+    border-bottom-color: #404040;
+}
+
+/* Keep action buttons column in English font */
+.data-table td:last-child {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+}
+
+/* Ensure all data cells except the last one use Sinhala font */
+.data-table tbody td:not(:last-child) {
+    font-family: 'FM Malithi', 'Malithi Web', 'Iskoola Pota', 'Noto Sans Sinhala', sans-serif !important;
+}
+
+.data-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.dark-theme .data-table tbody tr:hover {
+    background: #3a3a3a;
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Detail Item Styling */
+.detail-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    font-family: 'FM Malithi', 'Malithi Web', 'Iskoola Pota', 'Noto Sans Sinhala', sans-serif;
+    color: #666;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-item strong {
+    color: #2c2c2c;
+    display: inline-block;
+    min-width: 150px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.dark-theme .detail-item strong {
+    color: #f0f0f0;
+}
+
+.dark-theme .detail-item {
+    color: #999;
+    border-bottom-color: #404040;
+}
+
+/* View Details Modal Styles */
+.view-details-modal-content {
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+}
+
+.dark-theme .view-details-modal-content {
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+}
+
+.view-details-content {
+    padding: 25px;
+}
+
+.view-user-details-page {
+    padding: 0;
+    background: transparent;
+}
+
+/* Form styling in view details edit mode */
+.view-details-section .form-group {
+    margin-bottom: 15px;
+}
+
+.view-details-section .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+}
+
+.dark-theme .view-details-section .form-group label {
+    color: #e0e0e0;
+}
+
+.view-details-section .form-group input,
+.view-details-section .form-group textarea,
+.view-details-section .form-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+}
+
+.view-details-section .form-group input:focus,
+.view-details-section .form-group textarea:focus,
+.view-details-section .form-group select:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.dark-theme .view-details-section .form-group input,
+.dark-theme .view-details-section .form-group textarea,
+.dark-theme .view-details-section .form-group select {
+    background: #3a3a3a;
+    border-color: #555;
+    color: #e0e0e0;
+}
+
+.dark-theme .view-details-section .form-group input:focus,
+.dark-theme .view-details-section .form-group textarea:focus,
+.dark-theme .view-details-section .form-group select:focus {
+    border-color: #e0e0e0;
+    box-shadow: 0 0 0 2px rgba(224, 224, 224, 0.1);
+}
+
+.view-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.view-details-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.dark-theme .view-details-section {
+    background: #2a2a2a;
+    border-color: #404040;
+}
+
+.view-details-section-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c2c2c;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.dark-theme .view-details-section-title {
+    color: #f0f0f0;
+    border-bottom-color: #404040;
+}
+
+.view-details-location-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.communities-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.community-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #000;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-family: 'FM Malithi', 'Malithi Web', 'Iskoola Pota', 'Noto Sans Sinhala', sans-serif;
+    font-weight: 500;
+}
+
+.dark-theme .community-badge {
+    background: #e0e0e0;
+    color: #1a1a1a;
+}
+
+.edit-modal-content {
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+}
+
+.dark-theme .edit-modal-content {
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+}
+
+/* Responsive view details */
+@media (max-width: 768px) {
+    .view-details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .view-details-section {
+        grid-column: span 1 !important;
+    }
+    
+    .view-details-location-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
     width: 8px;
@@ -927,4 +1306,262 @@ body.dark-theme {
 
 .dark-theme ::-webkit-scrollbar-thumb:hover {
     background: #777;
+}
+
+/* Pagination Styles */
+.pagination-container {
+    margin-top: 30px;
+    padding: 25px 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid #e8e8e8;
+    transition: all 0.3s ease;
+}
+
+.dark-theme .pagination-container {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+    border-color: #404040;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.pagination-info-section {
+    flex: 0 0 auto;
+}
+
+.pagination-info {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    color: #555;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.dark-theme .pagination-info {
+    color: #d0d0d0;
+}
+
+.pagination-navigation {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.pagination-btn {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    padding: 10px 18px;
+    border: 2px solid #e0e0e0;
+    background: #ffffff;
+    color: #333;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 100px;
+    justify-content: center;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: #f5f5f5;
+    color: #999;
+    border-color: #e0e0e0;
+}
+
+.dark-theme .pagination-btn {
+    background: #3a3a3a;
+    color: #e0e0e0;
+    border-color: #555;
+}
+
+.dark-theme .pagination-btn:hover:not(:disabled) {
+    background: #e0e0e0;
+    color: #1a1a1a;
+    border-color: #e0e0e0;
+}
+
+.dark-theme .pagination-btn:disabled {
+    background: #2a2a2a;
+    color: #666;
+    border-color: #404040;
+}
+
+.pagination-nav-btn span {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.pagination-pages {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.pagination-page-btn {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    padding: 10px 16px;
+    border: 2px solid #e0e0e0;
+    background: #ffffff;
+    color: #333;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    min-width: 44px;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-page-btn:hover {
+    background: #f0f0f0;
+    border-color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pagination-page-btn.active {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dark-theme .pagination-page-btn {
+    background: #3a3a3a;
+    color: #e0e0e0;
+    border-color: #555;
+}
+
+.dark-theme .pagination-page-btn:hover {
+    background: #4a4a4a;
+    border-color: #e0e0e0;
+}
+
+.dark-theme .pagination-page-btn.active {
+    background: #e0e0e0;
+    color: #1a1a1a;
+    border-color: #e0e0e0;
+}
+
+.pagination-ellipsis {
+    padding: 10px 8px;
+    color: #999;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    user-select: none;
+}
+
+.dark-theme .pagination-ellipsis {
+    color: #777;
+}
+
+.pagination-per-page {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pagination-label {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.dark-theme .pagination-label {
+    color: #d0d0d0;
+}
+
+.pagination-select {
+    padding: 10px 16px;
+    border: 2px solid #e0e0e0;
+    background: #ffffff;
+    color: #333;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 80px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+}
+
+.pagination-select:hover {
+    border-color: #000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pagination-select:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.dark-theme .pagination-select {
+    background: #3a3a3a;
+    color: #e0e0e0;
+    border-color: #555;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23e0e0e0' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+}
+
+.dark-theme .pagination-select:hover {
+    border-color: #e0e0e0;
+}
+
+.dark-theme .pagination-select:focus {
+    border-color: #e0e0e0;
+    box-shadow: 0 0 0 3px rgba(224, 224, 224, 0.1);
+}
+
+/* Responsive pagination */
+@media (max-width: 1200px) {
+    .pagination-container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+    
+    .pagination-navigation {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .pagination-info-section,
+    .pagination-per-page {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
 }
