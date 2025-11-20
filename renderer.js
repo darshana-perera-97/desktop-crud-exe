@@ -1908,9 +1908,9 @@ window.cancelEditMode = function() {
 window.saveFromViewPage = function() {
     if (!currentViewingRecordNIC) return;
     
-    const recordId = document.getElementById('view-edit-record-id')?.value;
-    if (!recordId) {
-        showMessage('Error: Record ID not found', 'error');
+    const currentNic = document.getElementById('view-edit-record-nic')?.value?.trim();
+    if (!currentNic) {
+        showMessage('Error: Record NIC not found', 'error');
         return;
     }
     
@@ -1948,7 +1948,10 @@ window.saveFromViewPage = function() {
     
     // Check for duplicate NIC (excluding current record)
     const nicTrimmed = data.nic.trim();
-    const duplicateNIC = records.find(record => record.id !== recordId && record.nic && record.nic.trim() === nicTrimmed);
+    const duplicateNIC = records.find(record => {
+        const recordNic = record.nic?.trim();
+        return recordNic && recordNic === nicTrimmed && recordNic !== currentNic;
+    });
     if (duplicateNIC) {
         showMessage('This NIC number already exists. Please use a different NIC.', 'error');
         return;
@@ -1990,7 +1993,7 @@ window.saveFromViewPage = function() {
     } : null);
     
     // Find and update record
-    const recordIndex = records.findIndex(record => record.id === recordId);
+    const recordIndex = records.findIndex(record => record.nic && record.nic.trim() === currentNic);
     if (recordIndex === -1) {
         showMessage('Error: Record not found', 'error');
         return;
