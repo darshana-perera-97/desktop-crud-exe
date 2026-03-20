@@ -179,7 +179,7 @@ function setupEventListeners() {
     document.getElementById('add-community-form').addEventListener('submit', handleAddCommunity);
     
     // Filter functionality for view users section
-    const filterInputs = ['filter-name', 'filter-nic', 'filter-gsDivision', 'filter-poolingBooth', 'filter-priority'];
+    const filterInputs = ['filter-name', 'filter-nic', 'filter-gsDivision', 'filter-poolingBooth', 'filter-priority', 'filter-dob'];
     
     // Function to apply all filters (made global for access from other functions)
     window.applyFiltersAndSearch = function() {
@@ -188,7 +188,8 @@ function setupEventListeners() {
             nic: document.getElementById('filter-nic')?.value.trim() || '',
             gsDivision: document.getElementById('filter-gsDivision')?.value || '',
             poolingBooth: document.getElementById('filter-poolingBooth')?.value || '',
-            priority: document.getElementById('filter-priority')?.value || ''
+            priority: document.getElementById('filter-priority')?.value || '',
+            dob: document.getElementById('filter-dob')?.value || ''
         };
         
         const filteredRecords = records.filter(record => {
@@ -214,6 +215,17 @@ function setupEventListeners() {
             if (filters.priority && record.priority !== filters.priority) {
                 return false;
             }
+            if (filters.dob) {
+                const filterParts = filters.dob.split('-');
+                const filterMonth = filterParts[1];
+                const filterDay = filterParts[2];
+                const recordDobStr = record.dob ? String(record.dob).split('T')[0] : '';
+                if (!recordDobStr) return false;
+                const recordParts = recordDobStr.split('-');
+                if (recordParts[1] !== filterMonth || recordParts[2] !== filterDay) {
+                    return false;
+                }
+            }
             
             return true;
         });
@@ -235,7 +247,7 @@ function setupEventListeners() {
     
     // Clear filters function (made global for access from HTML)
     window.clearFilters = function() {
-        const filterInputs = ['filter-name', 'filter-nic', 'filter-gsDivision', 'filter-poolingBooth', 'filter-priority'];
+        const filterInputs = ['filter-name', 'filter-nic', 'filter-gsDivision', 'filter-poolingBooth', 'filter-priority', 'filter-dob'];
         filterInputs.forEach(inputId => {
             const input = document.getElementById(inputId);
             if (input) input.value = '';
@@ -510,6 +522,39 @@ function setupEventListeners() {
         }
     };
     
+    // Download WhatsApp numbers as CSV (7XXXXXXXX format only)
+    window.downloadWhatsappNumbers = function() {
+        const dataToExport = filteredRecordsForPagination || [];
+        if (!dataToExport || dataToExport.length === 0) {
+            alert('No records to export. Please ensure there are filtered records in the table.');
+            return;
+        }
+        const normalizeTo7Format = (num) => {
+            const digits = (num || '').replace(/\D/g, '');
+            const m = digits.match(/7\d{8}$/) || (digits.length === 9 && digits.startsWith('7') ? [digits] : null);
+            return m ? m[0] : null;
+        };
+        const rows = [];
+        const seen = new Set();
+        dataToExport.forEach(r => {
+            const raw = (r.whatsapp && r.whatsapp.trim()) || (r.mobile1 && r.mobile1.trim()) || '';
+            const num = normalizeTo7Format(raw);
+            if (num && !seen.has(num)) {
+                seen.add(num);
+                rows.push(num);
+            }
+        });
+        const content = rows.join('\n');
+        const blob = new Blob([content], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `whatsapp_numbers_${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+        alert(`Downloaded ${rows.length} WhatsApp number(s) in 7XXXXXXXX format.`);
+    };
+    
     // Download address list as PDF
     window.downloadAddressListPdf = async function() {
         const dataToExport = filteredRecordsForPagination || [];
@@ -652,11 +697,6 @@ function setupEventListeners() {
             }
             alert('Error generating address list PDF. Please make sure html2canvas and jsPDF libraries are loaded.');
         }
-    };
-    
-    window.handleViewAction3 = function() {
-        console.log('View Action 3 clicked');
-        // Add your custom functionality here
     };
     
     // Listen for data directory selection
@@ -1119,7 +1159,7 @@ async function loadRecordsForView() {
         lastSavedRecords = [...records];
         
         // Clear filters when loading
-        const filterInputs = ['filter-name', 'filter-nic', 'filter-gsDivision', 'filter-poolingBooth', 'filter-priority'];
+        const filterInputs = ['filter-name', 'filter-nic', 'filter-gsDivision', 'filter-poolingBooth', 'filter-priority', 'filter-dob'];
         filterInputs.forEach(inputId => {
             const input = document.getElementById(inputId);
             if (input) input.value = '';

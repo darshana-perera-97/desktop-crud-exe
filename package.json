@@ -1,7 +1,7 @@
 {
-  "name": "desktop-crud-exe",
-  "version": "1.0.0",
-  "description": "A simple desktop application for Windows",
+  "name": "sjb-data-collector",
+  "version": "1.1.0",
+  "description": "SJB Data Collector desktop application for Windows",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -17,8 +17,8 @@
     "electron-builder": "^24.6.4"
   },
   "build": {
-    "appId": "com.example.desktop-crud-exe",
-    "productName": "Desktop CRUD App",
+    "appId": "com.example.sjb-data-collector",
+    "productName": "SJB Data Collector",
     "directories": {
       "output": "dist"
     },
@@ -27,13 +27,15 @@
       "index.html",
       "styles.css",
       "renderer.js",
+      "data.js",
       "settings.html",
       "package.json",
       "fonts/**/*"
     ],
     "win": {
       "target": "nsis",
-      "icon": "icon.ico"
+      "icon": "icon.ico",
+      "publisherName": "Darshana Perera"
     }
   }
 }
